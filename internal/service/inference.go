@@ -77,7 +77,7 @@ func (s *InferenceService) PlanInferenceRun(ctx context.Context, input PlanInfer
 		if err := domain.ValidateRoute(source, target); err != nil {
 			return err
 		}
-		dayStart, dayEnd, err := source.QuotaWindow(input.ScheduledStartAt, now)
+		dayStart, dayEnd, err := source.BusinessDayWindow(input.ScheduledStartAt)
 		if err != nil {
 			return err
 		}

@@ -67,17 +67,6 @@ func (s DataZone) BusinessDayWindow(at time.Time) (time.Time, time.Time, error) 
 	return start.UTC(), end.UTC(), nil
 }
 
-func (s DataZone) QuotaWindow(scheduledAt, observedAt time.Time) (time.Time, time.Time, error) {
-	effective := scheduledAt
-	if scheduledAt.After(observedAt) && scheduledAt.Sub(observedAt) > 24*time.Hour {
-		effective = observedAt
-	}
-	if effective.IsZero() {
-		effective = observedAt
-	}
-	return s.BusinessDayWindow(effective)
-}
-
 func (s DataZone) IsOpen() bool { return s.Status == DataZoneActive }
 
 func (s DataZone) IsSuspended() bool { return s.Status == DataZoneSuspended }
